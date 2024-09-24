@@ -1,10 +1,11 @@
-import './styles.css';
+import React from 'react';
+import './styles.css'; 
 
 
 const App = ()=> {
     return (
        
-            <h1>Jonas Medeiros</h1>
+            <h1 className='jonas'>Jonas Medeiros</h1>
         
     )
 }
