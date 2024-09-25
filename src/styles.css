@@ -1,119 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,100;1,700&display=swap');
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* outline: 2px solid rebeccapurple;  */
+    /* outline: 2px solid red;  */
+
 }
 
 html, body {
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center; 
-    align-items: center;     
-    font-family: Arial, sans-serif;
+    width: 100vw;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: italic;
     background-color: #121212;
-    color: #fff; 
 }
 
 .container {
-    height: 90vh; 
-    width: 90vw;   
-    background-color: #121212; 
-}
-.menu {
     display: flex;
-    list-style: none;
     justify-content: center;
-    margin: auto 5%;
-    border-radius: 15%;
-}
-.menu li {
-    /* background-color: aqua;     */
-    margin: 50px 30px;
-
-}
-.galeria_filmes {
-    width: 200px;
-    text-align: center;
-    cursor: grab; /* Muda o cursor para indicar que pode ser arrastado */
 }
 
-.galeria_filmes img {
-    width: 150px; /* Largura dos thumbnails */
-    height: 200px; /* Altura dos thumbnails */
-    display: block; 
-    border-radius: 10px; /* Bordas arredondadas */
-    transition: transform 0.3s; /* Transição suave para o efeito de zoom */
+.menu {    
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    list-style: none; 
+    margin-top: 5px;
+    border-radius: 2%;
 }
 
-.galeria_filmes img:hover {
-    transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
-}
-
-.galeria_filmes p {
-    margin-top: 10px; /* Espaçamento acima do título do filme */
-    font-size: 1.2em; /* Tamanho da fonte */
-    overflow: hidden; /* Impede quebras de linha */
-}
-
-
-
-h1 {
-    text-align: center; 
-     /* Margem acima e esquerda */
-    font-size: 24px; 
-}
-
-h2 {
-    margin: 0 0  15px 0; /* Margem acima e esquerda */
-}
-
-ul.menu {
-    list-style-type: none; /* Remove os pontos da lista */
-    padding: 0; /* Remove o recuo padrão */
-    margin: 0; 
-    background-color: rgba(20, 25, 33, 0.8);
-    border-radius: 15px;
-    width: 80%;  
-    height: 83px;
-    margin: 0 auto; /* Centraliza o menu */
-    display: flex; /* Flexbox para itens em linha */
-    justify-content: center; /* Centraliza os itens no eixo horizontal */
-    align-items: center; /* Centraliza os itens no eixo vertical */
-}
-
-ul.menu li {
-    display: inline; /* Coloca os itens da lista em linha */
-    margin-right: 70px; /* Espaçamento entre os itens */
-}
-
-ul.menu li a {
+.menu > li, a{
+    margin: 10px 5%;
+    color: #000;
     text-decoration: none;
-    color: #fff;
-    font-size: 18px;
 }
 
-
-
-
-/* Responsividade */
-@media (max-width: 768px) {
-    ul.menu {
-        flex-direction: column; /* Coloca o menu em coluna em telas menores */
-        height: auto; /* Ajusta a altura do menu */
-    }
-
-    ul.menu li {
-        margin: 10px 0; /* Ajusta o espaçamento entre os itens */
-    }
-
-    .galeria_filmes {
-        width: 150px; /* Ajusta a largura dos filmes em telas menores */
-    }
-
-    .galeria_filmes img {
-        width: 120px; /* Ajusta a largura das imagens em telas menores */
-        height: auto; /* Mantém a proporção das imagens */
-    }
-}

@@ -8,14 +8,10 @@ const App = ()=> {
     return (
        
            <div className='container'>
+
             <Menu />
-            <h1>Tecnologia, Sci-Fi e Tendências do Futuro</h1>
-
-            <Filmes />
-            <Filmes />
-            <Filmes />
-            <Filmes />
-
+            {/* <h1>Tecnologia, Sci-Fi e Tendências do Futuro</h1> */}
+          
            </div>
         
     )
