@@ -1,11 +1,22 @@
 import React from 'react';
 import './styles.css'; 
+import Menu from './components/Menu';
+import Filmes from './components/Filmes';
 
 
 const App = ()=> {
     return (
        
-            <h1 className='jonas'>Jonas Medeiros</h1>
+           <div className='container'>
+            <Menu />
+            <h1>Tecnologia, Sci-Fi e Tendências do Futuro</h1>
+
+            <Filmes />
+            <Filmes />
+            <Filmes />
+            <Filmes />
+
+           </div>
         
     )
 }
