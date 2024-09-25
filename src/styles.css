@@ -1,41 +1,91 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,100;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* outline: 2px solid red;  */
-
+    font-family: "Poppins", sans-serif;
 }
 
 html, body {
-    margin: 0;
-    padding: 0;
     width: 100vw;
-    font-family: "Poppins", sans-serif;
-    font-weight: 700;
-    font-style: italic;
-    background-color: #121212;
-}
-
-.container {
-    display: flex;
-    justify-content: center;
-}
-
-.menu {    
-    width: 90%;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #fff;
+    background-color: #121212; /* Fundo escuro */
+    color: #e0e0e0; /* Texto claro */
+}
+
+#root {
+    width: 90%;
+    height: 90%;
+    display: flex;
+    justify-content: center; 
+    background-color: #1e1e1e; /* Tom mais claro de cinza */
+    border-radius: 8px; /* Bordas arredondadas */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Sombra sutil */
+}
+
+.container {
+    overflow-x: hidden; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%; /* Para ocupar toda a largura */
+}
+
+.menu {    
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     list-style: none; 
-    margin-top: 5px;
-    border-radius: 2%;
+    margin: 10px 0;
 }
 
-.menu > li, a{
-    margin: 10px 5%;
-    color: #000;
+.menu > li, a {
+    margin: 0 15px;
+    color: #e0e0e0; /* Texto claro */
     text-decoration: none;
+    transition: color 0.3s; /* Transição suave na cor */
 }
 
+.menu > li:hover, a:hover {
+    color: #ffa500; /* Cor de destaque ao passar o mouse */
+}
+
+.movie-container {
+    width: 100%; /* Para ocupar toda a largura */
+    overflow: hidden; /* Esconde a rolagem vertical */
+}
+
+.movie-list {
+    display: flex; 
+    overflow-x: auto; /* Permite rolagem horizontal */
+    overflow-y: hidden; /* Esconde rolagem vertical */
+    padding: 10px; /* Adiciona espaçamento interno */
+    white-space: nowrap; /* Impede a quebra de linha */
+    scrollbar-width: none; /* Para Firefox - oculta a barra de rolagem */
+}
+
+/* Para Webkit browsers (Chrome, Safari) */
+.movie-list::-webkit-scrollbar {
+    display: none; 
+}
+
+.section-movie {
+    margin-right: 10px; 
+    transition: transform 0.3s; /* Transição suave */
+}
+
+.section-movie:hover {
+    transform: scale(1.05); /* Efeito de aumento ao passar o mouse */
+}
+
+img {
+    width: 160px; 
+    height: 220px; 
+    border-radius: 4%; 
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Borda sutil */
+}
