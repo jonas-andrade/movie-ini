@@ -6,17 +6,10 @@ import Movie from './components/Movie';
 
 const App = ()=> {
     return (
-       
+    
            <div className='container'>
-            
-         
-
             <Menu />
             <Movie/>
-            <Movie/>
-            
-                
- 
            </div>
         
     )
