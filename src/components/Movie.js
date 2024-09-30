@@ -1,51 +1,106 @@
+import React, { useEffect, useState } from 'react';
+import { TMDB } from '../service/api';
 
-import React, { useEffect, useState, useRef  } from 'react';
-import { movieApi } from '../service/api';
-
-
-
-
+const genreMap = {
+    28: 'Ação',
+    12: 'Aventura',
+    16: 'Animação',
+    35: 'Comédia',
+    80: 'Crime',
+    99: 'Documentário',
+    18: 'Drama',
+    10751: 'Família',
+    14: 'Fantasia',
+    36: 'História',
+    27: 'Terror',
+    10402: 'Música',
+    9648: 'Mistério',
+    10749: 'Romance',
+    878: 'Ficção Científica',
+    10770: 'Filme de TV',
+    53: 'Thriller',
+    10752: 'Guerra',
+    37: 'Faroeste'
+};
 
 const Movie = () => {
     const [movies, setMovies] = useState([]);
+    const [groups, setGroups] = useState({});
+    const [scrollPositions, setScrollPositions] = useState({});
+
     useEffect(() => {
-        // Chama a função que busca os dados da API
         const getMovies = async () => {
-            const data = await movieApi.fetchMoviesData();
+            const data = await TMDB.fetchMoviesData();
             if (data && data.movies) {
-                setMovies(data.movies); // Define os filmes no estado
+                setMovies(data.movies);
+                setGroups(groupMoviesByGenre(data.movies)); // Agrupando filmes por gênero
             }
         };
         getMovies();
     }, []);
 
-    const movieListRef = useRef(null); // Criando uma referência para o contêiner da lista de filmes
+    const groupMoviesByGenre = (movies) => {
+        const groups = {};
 
-    // Função para rolar a lista de filmes ao mover o mouse
-    const handleMouseMove = (e) => {
-        if (movieListRef.current) {
-            const { clientX } = e;
-            const { offsetWidth, scrollWidth } = movieListRef.current;
-            const scrollPosition = (clientX / window.innerWidth) * (scrollWidth - offsetWidth);
-            movieListRef.current.scrollLeft = scrollPosition;
-        }
+        movies.forEach((movie) => {
+            const genres = movie.genre_ids.map((id) => genreMap[id]);
+            genres.forEach((genre) => {
+                if (!groups[genre]) {
+                    groups[genre] = [];
+                }
+                groups[genre].push(movie);
+            });
+        });
+
+        return groups;
     };
 
+    const handleMouseMove = (event, genre) => {
+        const carousel = event.currentTarget;
+        const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
+        const mouseX = event.clientX - carousel.getBoundingClientRect().left;
+        const scrollPercentage = mouseX / carousel.clientWidth;
+        const newScrollPosition = scrollPercentage * maxScrollLeft;
 
-    
+        setScrollPositions((prevPositions) => ({
+            ...prevPositions,
+            [genre]: newScrollPosition
+        }));
+    };
+
+    const baseImageUrl = 'https://image.tmdb.org/t/p/w500'; // URL base para imagens do TMDB
+
     return (
-        <div className='movie-container' onMouseMove={handleMouseMove}>
-          
-            <div className='movie-list' ref={movieListRef}>
-                {movies.length > 0 ? movies.map((movie) => (
-                    
-                    <section key={movie.id} className='section-movie'>
-                        {/* {movie.genre_ids === 99 ? <h2>Ficção Ciêntifica</h2> : <h2>Ação</h2>} */}
-                        <img src={`${movie.poster_path}`} alt={movie.title} />
-                        <p>{movie.title}</p>
-                    </section>
-                )) : <p>Dados inexistentes!</p>}
-            </div>
+        <div className='movie-container'>
+            {Object.entries(groups).length > 0 ? (
+                Object.entries(groups).map(([genre, movies]) => (
+                    <div key={genre} className="genre-section">
+                        <h1>{genre}</h1>
+                        <div
+                            className="movies"
+                            onMouseMove={(event) => handleMouseMove(event, genre)}
+                            style={{
+                                transform: `translateX(-${scrollPositions[genre] || 0}px)`,
+                                transition: 'transform 0.3s ease-out' // Rolagem suave
+                            }}
+                        >
+                            {movies.map((movie) => (
+                                <section key={movie.id} className="section-movie">
+                                    <div className="poster_and_titulo">
+                                        <img
+                                            src={`${baseImageUrl}${movie.poster_path}`} // URL completa da imagem
+                                            alt={movie.title}
+                                        />
+                                        <h3>{movie.title}</h3>
+                                    </div>
+                                </section>
+                            ))}
+                        </div>
+                    </div>
+                ))
+            ) : (
+                <p>Dados inexistentes!</p>
+            )}
         </div>
     );
 };

@@ -6,6 +6,7 @@ const ACCESS_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNDc4ZjIzNzIzN2NlOTliZGViN
 
 // Configurações de cabeçalhos para a requisição
 const options = {
+    method: "GET",
     headers: {
         accept: 'application/json',
         Authorization: `Bearer ${ACCESS_TOKEN}`
@@ -15,9 +16,7 @@ const options = {
 // Função que busca os dados da API e retorna um objeto com os filmes
 const fetchMoviesData = async () => {
     try {
-        const response = await axios.get(BASE_URL, options);
-
-        // Retornando o objeto com todos os dados dos filmes
+        const response = await axios(BASE_URL, options);
         return {
             movies: response.data.results.map(movie => ({
                 id: movie.id,
@@ -25,21 +24,18 @@ const fetchMoviesData = async () => {
                 overview: movie.overview,
                 release_date: movie.release_date,
                 poster_path: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
-                vote_average: movie.vote_average,
-                genre_ids: movie.genre_ids, // Gêneros por ID (pode ser convertido para nomes, se necessário)
+                genre_ids: movie.genre_ids, 
                 popularity: movie.popularity
-            })),
-            total_results: response.data.total_results,
-            total_pages: response.data.total_pages,
-            page: response.data.page
+            }))
         };
+
     } catch (error) {
         console.error('Erro ao buscar filmes:', error);
         return { error: 'Erro ao buscar filmes' };
     }
 };
 
-// Exportando a função que pode ser chamada em outro lugar
-export const movieApi = {
+
+export const TMDB = {
     fetchMoviesData
 };
